@@ -1,0 +1,41 @@
+--Select statment
+--we can select everything
+select * from employee_demographics;
+select * from employee_salary;
+select * from parks_departments;
+--changing the order
+select last_name,first_name,salary from employee_salary;
+--calculation 
+SELECT last_name,first_name,salary,salary-100 as "Salary After tax"  from employee_salary;
+SELECT last_name,first_name,salary,(salary*2)-100 as "Salary After tax"  from employee_salary;
+SELECT DISTINCT dept_id
+FROM employee_salary;
+--using where statment to filter
+SELECT *
+FROM employee_demographics
+WHERE first_name LIKE '%rry';
+
+--limit 
+--how many numbers 0f colums you want to show 
+SELECT TOP 3 *
+FROM employee_demographics;
+SELECT TOP 3 *
+FROM employee_demographics
+order by employee_id Desc;
+--pagination
+SELECT *
+FROM employee_demographics
+ORDER BY employee_id
+OFFSET 3 ROWS
+FETCH NEXT 2 ROWS ONLY;
+
+select *
+from employee_demographics
+order by employee_id DESC
+offset 1 ROWS
+FETCH next 2 rows only;
+--Aliasing
+select dept_id,sum(salary) as Dept_slary from employee_salary
+where dept_id=6
+group by dept_id
+;
