@@ -1,0 +1,85 @@
+--Day3
+--Revise
+use Parks_and_Recreation;
+select * from employee_demographics;
+select distinct * from employee_salary;
+select first_name,last_name,gender from employee_demographics;
+--to check the missing value in employee demographics 
+SELECT 
+    es.employee_id,
+    es.first_name
+FROM 
+    employee_salary es
+LEFT JOIN 
+    employee_demographics ed 
+ON 
+    es.employee_id = ed.employee_id
+WHERE 
+    ed.employee_id IS NULL;
+
+--who has the highest salary
+SELECT TOP 1 *
+FROM employee_salary
+ORDER BY salary DESC;
+--what is the maximam salary
+SELECT TOP 1 employee_id,first_name, salary
+FROM employee_salary
+ORDER BY salary DESC;
+--another way to find
+SELECT  max(salary) as [maximam salary]
+FROM employee_salary;
+
+--how to select the second and fouth max salary
+    SELECT employee_id,first_name, salary
+    FROM employee_salary
+    ORDER BY salary DESC
+    OFFSET 1 ROWS
+    FETCH NEXT 2 ROWS ONLY;
+--let try to find employee who are older than 40 year group by gender
+select gender,count(employee_id) as Noemployees from employee_demographics
+where age > 40 group by gender;
+
+SELECT gender, AVG(age) AS AverageAge
+FROM employee_demographics
+GROUP BY gender
+HAVING AVG(age) > 40;
+
+-- when we group by 2 columns we now have a row for both occupation and salary because salary is different
+SELECT occupation, salary
+FROM employee_salary
+GROUP BY occupation, salary
+;
+-- The ORDER BY clause:
+-------------------------
+--The ORDER BY keyword is used to sort the result-set in ascending or descending order.
+
+--The ORDER BY keyword sorts the records in ascending order by default. To sort the records in descending order, use the DESC keyword.
+
+
+--So let's try it out with our customer table
+--First let's start simple with just ordering by one column
+SELECT *
+FROM employee_demographics
+ORDER BY first_name;
+
+SELECT *
+FROM employee_demographics
+ORDER BY first_name DESC;
+
+
+SELECT *
+FROM employee_demographics
+ORDER BY gender, age;
+
+SELECT *
+FROM employee_demographics
+ORDER BY gender DESC, age DESC;
+
+
+SELECT *
+FROM employee_demographics
+ORDER BY 5 DESC, 4 DESC;
+
+--Now best practice is to use the column names as it's more overt and if columns are added or replaced or something in this table it will still use the right columns to order on.
+
+--So that's all there is to order by - fairly straight forward, but something I use for most queries I use in SQL
