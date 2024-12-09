@@ -1,0 +1,9 @@
+1.
+IF(activity_type = 'start', -1, 1):
+This conditional logic assigns:
+-1 to the start timestamp.
+1 to the end timestamp.
+This ensures that start timestamps are subtracted, and end timestamps are added in the next step.
+SUM(IF(activity_type = 'start', -1, 1) * timestamp):
+Multiplies the timestamps by the result of the IF statement.
+Adds end timestamps and subtracts start timestamps to calculate the total time for all processes on the machine.
